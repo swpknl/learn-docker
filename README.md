@@ -89,4 +89,25 @@ Entrypoint in Dockerfile:
 - CMD ["command", "param"]
 - ENTRYPOINT is like command which will run when the container starts
 	- ENTRYPOINT ["sleep"]
-- To override the ENTRYPOINT use --entrypoint argument 
+- To override the ENTRYPOINT use --entrypoint argument
+
+Docker compose:
+- docker run --links - it is used to link separate containers
+	- docker run -d --name=bote -p 5000:80 --link redis:redis voting-app
+	- This adds an entry to the etc/hosts file that the 2 separate containers are to be run together
+	- links has been deprecated and there are advanced and better ways are present, like Docker swarm and networking
+	- Running separate docker images can be done using docker-compose.yml
+	- in the file, we specify the names of the images
+		- Under the image name, we have key-value pair, where the key is image and the value is the name of the image
+	- We also have ports
+	- And finally we have links in the file as well
+	- Run the docker compose up command to run the entire application stack
+	- We can specify the version of the docker compose file at the top using:
+		- version: 2
+		- It also specifies the depends_on, where we can specify the start order
+	- Version 3: 
+		- It is similar to version 2 and specifies the services section similar to version 2 where we can specify the services
+		- It also specifies the docker swarm
+	- Networks in docker compose:
+		- create a new property called networks in the root of the file next to the services section
+		- Then specify the networks in each image in the services section
